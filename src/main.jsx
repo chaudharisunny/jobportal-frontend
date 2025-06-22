@@ -5,7 +5,7 @@ import App from './App.jsx'
 import axios from 'axios';
 
 // ✅ Setup for cross-device communication
-axios.defaults.baseURL = 'http://192.168.151.250:3000'; // your backend IP
+axios.defaults.baseURL = 'https://jobportal-backend-d315.onrender.com/'; // your backend IP
 axios.defaults.withCredentials = true;                  // allow cookies/session
 
 createRoot(document.getElementById('root')).render(
