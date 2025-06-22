@@ -20,7 +20,7 @@ function NewPost() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     if (!token) {
       alert('You are not logged in. Please login first.');
       return;

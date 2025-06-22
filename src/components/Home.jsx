@@ -17,7 +17,7 @@ function JobCard({ job, onClick }) {
     if (isMobile) {
       navigate(`/job/${job._id}`);
     } else {
-      onClick();
+      onClick();           
     }
   };
 
@@ -167,17 +167,7 @@ function Home() {
         <div className="w-full lg:w-1/4 bg-white p-4 rounded-xl shadow space-y-4">
           <h3 className="text-lg font-semibold text-gray-800">Filter Jobs</h3>
 
-          <div>
-            <label className="block text-sm text-gray-600 mb-1">Job Role</label>
-            <input
-              type="text"
-              placeholder="e.g. Developer"
-              value={filters.search}
-              onChange={(e) => setFilters({ ...filters, search: e.target.value })}
-              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-1 focus:ring-blue-500"
-            />
-          </div>
-
+          
           <div>
             <label className="block text-sm text-gray-600 mb-1">Salary</label>
             <select
