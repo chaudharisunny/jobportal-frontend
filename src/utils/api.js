@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://192.168.151.250:3000', // IP of your backend server
+  baseURL: 'http://localhost:3000', // IP of your backend server
   withCredentials: true                  // ✅ Send session cookie
 });
 
