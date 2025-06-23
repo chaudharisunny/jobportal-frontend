@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://localhost:3000', // IP of your backend server
-  withCredentials: true                  // ✅ Send session cookie
+  baseURL: 'https://your-backend.onrender.com', // ✅ Replace with your real deployed backend
+  withCredentials: true                // ✅ Send session cookie
 });
 
 // 🔐 Attach token from sessionStorage to every request
