@@ -10,7 +10,7 @@ const isLocalhost = window.location.hostname.includes('localhost');
 const API = axios.create({
   baseURL: isLocalhost
     ? 'http://localhost:3000' // local backend
-    : 'https://your-backend.onrender.com', // deployed backend
+    : 'https://jobportal-backend-d315.onrender.com', // deployed backend
   withCredentials: true
 });
 // 🔐 Attach token from sessionStorage to every request
