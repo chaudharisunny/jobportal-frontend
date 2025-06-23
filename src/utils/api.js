@@ -1,10 +1,18 @@
 import axios from 'axios';
 
-const API = axios.create({
-  baseURL: 'https://your-backend.onrender.com', // ✅ Replace with your real deployed backend
-  withCredentials: true                // ✅ Send session cookie
-});
+// const API = axios.create({
+//   baseURL: 'https://your-backend.onrender.com', // ✅ Replace with your real deployed backend
+//   withCredentials: true                // ✅ Send session cookie
+// });
 
+const isLocalhost = window.location.hostname.includes('localhost');
+
+const API = axios.create({
+  baseURL: isLocalhost
+    ? 'http://localhost:3000' // local backend
+    : 'https://your-backend.onrender.com', // deployed backend
+  withCredentials: true
+});
 // 🔐 Attach token from sessionStorage to every request
 API.interceptors.request.use(
   (config) => {
