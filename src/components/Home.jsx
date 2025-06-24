@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+
+import API from '../utils/api';
 
 function JobCard({ job, onClick }) {
   const navigate = useNavigate();
@@ -112,7 +113,7 @@ function Home() {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const res = await axios.get('http://localhost:3000/alljob');
+        const res = await API.get('http://localhost:3000/alljob');
         setJobs(res.data.data || []);
       } catch (err) {
         console.error(err);
