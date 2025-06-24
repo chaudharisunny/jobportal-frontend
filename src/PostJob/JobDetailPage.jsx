@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import API from '../utils/api';
 
 function JobDetailPage() {
   const { id } = useParams();
@@ -8,8 +8,8 @@ function JobDetailPage() {
   const [job, setJob] = useState(null);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:3000/alljob/${id}`)
+    API
+      .get(`https://jobportal-backend-d315.onrender.com/alljob/${id}`)
       .then((res) => setJob(res.data.data))
       .catch((err) => console.error('Error fetching job:', err));
   }, [id]);
