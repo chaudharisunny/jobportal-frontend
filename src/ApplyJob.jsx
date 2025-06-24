@@ -50,7 +50,7 @@ function ApplyJob() {
     try {
       setLoading(true);
       const response = await API.post(
-        `http://localhost:3000/applyjob/${id}`,
+        `/applyjob/${id}`,
         formData,
         {
           headers: {
