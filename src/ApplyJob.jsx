@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import JobDetailCard from './JobDetailCard';
+import API from './utils/api';
 
 function ApplyJob() {
   const { id } = useParams();
@@ -48,8 +49,8 @@ function ApplyJob() {
 
     try {
       setLoading(true);
-      const response = await axios.post(
-        `http://localhost:3000/applyjob/${id}`,
+      const response = await API.post(
+        `https://jobportal-backend-d315.onrender.com/applyjob/${id}`,
         formData,
         {
           headers: {
