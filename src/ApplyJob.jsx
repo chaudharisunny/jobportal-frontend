@@ -50,7 +50,7 @@ function ApplyJob() {
     try {
       setLoading(true);
       const response = await API.post(
-        `https://jobportal-backend-d315.onrender.com/applyjob/${id}`,
+        `/applyjob/${id}`,
         formData,
         {
           headers: {
