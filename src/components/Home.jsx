@@ -113,7 +113,7 @@ function Home() {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const res = await API.get('http://localhost:3000/alljob');
+        const res = await API.get('https://jobportal-backend-d315.onrender.com/alljob');
         setJobs(res.data.data || []);
       } catch (err) {
         console.error(err);
