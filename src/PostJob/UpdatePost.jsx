@@ -34,7 +34,7 @@ const UpdatePost = () => {
     const confirmDelete = window.confirm('Are you sure you want to delete this job?');
     if (!confirmDelete) return;
 
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     if (!token) return;
 
     try {

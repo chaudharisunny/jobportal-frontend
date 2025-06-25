@@ -155,4 +155,4 @@ const Applicant = () => {
   );
 };
 
-export default Applicant;
+export default Applicant;  
