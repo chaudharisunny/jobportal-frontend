@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
+import API from '../utils/api';
 
 const UpdatePost = () => {
   const [jobs, setJobs] = useState([]);
@@ -14,7 +14,7 @@ const UpdatePost = () => {
       if (!token) return;
 
       try {
-        const res = await axios.get('http://localhost:3000/myJob', {
+        const res = await API.get('https://jobportal-backend-d315.onrender.com/myJob', {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -39,7 +39,7 @@ const UpdatePost = () => {
 
     try {
       setDeletingId(jobId); // Show deleting state
-      await axios.delete(`http://localhost:3000/deletejob/${jobId}`, {
+      await API.delete(`https://jobportal-backend-d315.onrender.com/deletejob/${jobId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
