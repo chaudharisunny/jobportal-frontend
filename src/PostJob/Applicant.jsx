@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import Sidebar from '../components/Sidebar';
+import API from '../utils/api';
 
 const Applicant = () => {
   const { jobId } = useParams();
@@ -15,11 +15,11 @@ const Applicant = () => {
       if (!token) return;
 
       try {
-        const res = await axios.get(`http://localhost:3000/job/${jobId}/applicant`, {
+        const res = await API.get(`https://jobportal-backend-d315.onrender.com/job/${jobId}/applicant`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        const baseURL = 'http://localhost:3000';
+        const baseURL = 'https://jobportal-backend-d315.onrender.com';
         const formatted = res.data.applicants.map((user) => ({
           ...user,
           resumeUrl: user.resumeName
@@ -44,8 +44,8 @@ const Applicant = () => {
 
     setStatusUpdating(applicantId + status);
     try {
-      await axios.put(
-        `http://localhost:3000/application/${applicantId}/status`,
+      await API.put(
+        `https://jobportal-backend-d315.onrender.com/application/${applicantId}/status`,
         { status },
         {
           headers: { Authorization: `Bearer ${token}` },
