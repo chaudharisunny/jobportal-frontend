@@ -14,7 +14,7 @@ const ViewJob = () => {
       if (!token) return;
 
       try {
-        const res = await axios.get('http://localhost:3000/myJob', {
+        const res = await axios.get('https://jobportal-backend-d315.onrender.com/myJob', {
           headers: { Authorization: `Bearer ${token}` },
         });
 

@@ -28,7 +28,7 @@ function NewPost() {
 
     try {
       await axios.post(
-        'http://localhost:3000/newApplication',
+        'https://jobportal-backend-d315.onrender.com/newApplication',
         {
           ...form,
           skill: form.skill.split(',').map((s) => s.trim()),
