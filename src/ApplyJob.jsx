@@ -17,7 +17,7 @@ function ApplyJob() {
   useEffect(() => {
     const fetchJob = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/applyjob/${id}`);
+        const res = await API.get(`https://jobportal-backend-d315.onrender.com/applyjob/${id}`);
         setJob(res.data.data);
       } catch (err) {
         console.error('Failed to fetch job:', err);
