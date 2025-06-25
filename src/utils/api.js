@@ -9,7 +9,7 @@ const isLocalhost = window.location.hostname.includes('localhost');
 
 const API = axios.create({
   baseURL: isLocalhost
-    ? 'http://localhost:3000' // local backend
+    ? import.meta.env.VITE_API_URL ||'http://localhost:3000' // local backend
     : 'https://jobportal-backend-d315.onrender.com', // deployed backend
   withCredentials: true
 });

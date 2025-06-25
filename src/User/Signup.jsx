@@ -21,7 +21,7 @@ function Signup() {
     setMessage('');
 
     try {
-      const response = await axios.post('http://localhost:3000/signup', formData);
+      await axios.post('http://localhost:3000/signup', formData);
       setMessage('Signup successful! Redirecting...');
       setTimeout(() => {
         navigate('/home');

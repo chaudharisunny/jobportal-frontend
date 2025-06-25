@@ -51,6 +51,7 @@ function ApplyJob() {
       setLoading(true);
       const response = await API.post(
         `/applyjob/${id}`,
+        
         formData,
         {
           headers: {
@@ -58,8 +59,9 @@ function ApplyJob() {
             Authorization: `Bearer ${token}`,
           },
         }
+        
       );
-
+      
       setMessage(response.data.message || 'Applied successfully!');
       setHasApplied(true);
 

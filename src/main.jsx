@@ -8,6 +8,7 @@ import axios from 'axios';
 axios.defaults.baseURL = 'https://jobportal-backend-d315.onrender.com/'; // your backend IP
 axios.defaults.withCredentials = true;                  // allow cookies/session
 
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <App />
