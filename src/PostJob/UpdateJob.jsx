@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+import API from '../utils/api';
 
 const UpdateJob = () => {
   const { id } = useParams();
@@ -23,7 +24,7 @@ const UpdateJob = () => {
     const fetchJob = async () => {
       try {
         const token = sessionStorage.getItem('token');
-        const res = await axios.get('http://localhost:3000/myJob', {
+        const res = await API.get('https://jobportal-backend-d315.onrender.com/myJob', {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -68,7 +69,7 @@ const UpdateJob = () => {
 
     try {
       const token = localStorage.getItem('token');
-      await axios.put(`http://localhost:3000/editjob/${id}`, updatedPayload, {
+      await API.put(`https://jobportal-backend-d315.onrender.com/editjob/${id}`, updatedPayload, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
