@@ -7,7 +7,7 @@ const Applicant = () => {
   const { jobId } = useParams();
   const [applicants, setApplicants] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [statusUpdating, setStatusUpdating] = useState(null);
+  
 
   useEffect(() => {
     const fetchApplicants = async () => {
@@ -38,31 +38,7 @@ const Applicant = () => {
     fetchApplicants();
   }, [jobId]);
 
-  const handleStatusUpdate = async (applicantId, status) => {
-    const token = localStorage.getItem('token');
-    if (!token) return;
-
-    setStatusUpdating(applicantId + status);
-    try {
-      await API.put(
-        `https://jobportal-backend-d315.onrender.com/application/${applicantId}/status`,
-        { status },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-
-      setApplicants((prev) =>
-        prev.map((applicant) =>
-          applicant._id === applicantId ? { ...applicant, status } : applicant
-        )
-      );
-    } catch (err) {
-      console.error('Error updating status:', err);
-    } finally {
-      setStatusUpdating(null);
-    }
-  };
+  
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen bg-gray-50">
@@ -113,37 +89,7 @@ const Applicant = () => {
                   <p className="text-sm text-gray-400 italic mt-2">No resume uploaded</p>
                 )}
 
-                <p className="text-sm mt-4">
-                  Status:{' '}
-                  <span
-                    className={`font-medium ${
-                      user.status === 'hired'
-                        ? 'text-green-600'
-                        : user.status === 'rejected'
-                        ? 'text-red-600'
-                        : 'text-gray-500'
-                    }`}
-                  >
-                    {user.status || 'Pending'}
-                  </span>
-                </p>
-
-                <div className="mt-4 flex gap-3">
-                  <button
-                    onClick={() => handleStatusUpdate(user._id, 'hired')}
-                    className="text-white bg-green-500 hover:bg-green-600 px-3 py-1 rounded text-sm disabled:opacity-50"
-                    disabled={statusUpdating === user._id + 'hired'}
-                  >
-                    {statusUpdating === user._id + 'hired' ? 'Hiring...' : 'Hire'}
-                  </button>
-                  <button
-                    onClick={() => handleStatusUpdate(user._id, 'rejected')}
-                    className="text-white bg-red-500 hover:bg-red-600 px-3 py-1 rounded text-sm disabled:opacity-50"
-                    disabled={statusUpdating === user._id + 'rejected'}
-                  >
-                    {statusUpdating === user._id + 'rejected' ? 'Rejecting...' : 'Reject'}
-                  </button>
-                </div>
+               
               </div>
             ))}
           </div>

@@ -10,7 +10,7 @@ const UpdatePost = () => {
 
   useEffect(() => {
     const fetchJobs = async () => {
-      const token = sessionStorage.getItem('token'); // ✅ consistent token storage
+      const token = sessionStorage.getItem('token');
       if (!token) return;
 
       try {
@@ -38,7 +38,7 @@ const UpdatePost = () => {
     if (!token) return;
 
     try {
-      setDeletingId(jobId); // Show deleting state
+      setDeletingId(jobId);
       await API.delete(`https://jobportal-backend-d315.onrender.com/deletejob/${jobId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -102,9 +102,9 @@ const UpdatePost = () => {
                     </div>
                   </div>
 
-                  {job.applied && (
+                  {job.applicantCount > 0 && (
                     <span className="absolute top-3 right-3 bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full">
-                      ✅ Applied
+                      ✅ Applicants
                     </span>
                   )}
                 </div>
