@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu } from 'lucide-react';
+import { Menu, LogOut } from 'lucide-react';
 
 function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -8,10 +8,10 @@ function Sidebar() {
   const navigate = useNavigate();
 
   const navLinks = [
-    { path: '/dashboardJob', label: '🏠 Dashboard' },
-    { path: '/newpost', label: '📝 Post Job' },
-    { path: '/viewjob', label: '📄 View Jobs' },
-    { path: '/updatepost', label: '✏️ Update Job' },
+    { path: '/dashboardJob', label: 'Dashboard', icon: '🏠' },
+    { path: '/newpost', label: 'Post Job', icon: '📝' },
+    { path: '/viewjob', label: 'View Jobs', icon: '📄' },
+    { path: '/updatepost', label: 'Update Job', icon: '✏️' },
   ];
 
   const handleLogout = () => {
@@ -21,7 +21,7 @@ function Sidebar() {
 
   return (
     <>
-      {/* Mobile Header */}
+      {/* Mobile Top Bar */}
       <div className="md:hidden flex items-center justify-between bg-gray-800 text-white px-4 py-3 shadow">
         <h2 className="text-xl font-bold">Recruiter</h2>
         <button onClick={() => setIsOpen(!isOpen)}>
@@ -29,36 +29,44 @@ function Sidebar() {
         </button>
       </div>
 
-      {/* Sidebar for large screens or mobile drawer */}
+      {/* Sidebar */}
       <aside
-        className={`bg-gray-800 text-white w-60 p-5 space-y-4 min-h-screen absolute md:relative z-50 transform ${
+        className={`bg-gray-900 text-white w-60 h-screen fixed top-0 left-0 z-50 p-5 space-y-6 transition-transform duration-300 ease-in-out transform ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
-        } md:translate-x-0 transition-transform duration-300 ease-in-out`}
+        } md:translate-x-0 md:static md:block`}
       >
-        <h2 className="text-2xl font-bold mb-6 hidden md:block">Recruiter</h2>
+        {/* Logo */}
+        <div className="hidden md:block text-2xl font-bold text-yellow-400 tracking-wide">
+          Recruiter Panel
+        </div>
 
-        <nav className="space-y-3">
-          {navLinks.map(({ path, label }) => (
+        {/* Navigation */}
+        <nav className="flex flex-col space-y-2">
+          {navLinks.map(({ path, label, icon }) => (
             <Link
               key={path}
               to={path}
               onClick={() => setIsOpen(false)}
-              className={`block ${
+              className={`flex items-center space-x-3 px-3 py-2 rounded-lg transition duration-200 ${
                 location.pathname === path
-                  ? 'text-yellow-300 font-semibold'
-                  : 'text-white hover:text-yellow-300'
+                  ? 'bg-yellow-300 text-gray-900 font-semibold'
+                  : 'hover:bg-gray-700 hover:text-yellow-300'
               }`}
             >
-              {label}
+              <span className="text-xl">{icon}</span>
+              <span>{label}</span>
             </Link>
           ))}
-          <button
-            onClick={handleLogout}
-            className="mt-6 text-red-400 hover:text-red-600"
-          >
-            🚪 Logout
-          </button>
         </nav>
+
+        {/* Logout */}
+        <button
+          onClick={handleLogout}
+          className="flex items-center space-x-2 text-red-400 hover:text-red-600 mt-10 transition duration-200"
+        >
+          <LogOut className="w-5 h-5" />
+          <span>Logout</span>
+        </button>
       </aside>
     </>
   );

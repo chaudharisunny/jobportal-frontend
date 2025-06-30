@@ -11,7 +11,7 @@ function NewPost() {
     salaryRange: '',
     skill: '',
     description: '',
-    deadline: ''
+    deadline: '',
   });
 
   const handleChange = (e) => {
@@ -33,16 +33,13 @@ function NewPost() {
           ...form,
           skill: form.skill.split(',').map((s) => s.trim()),
           description: form.description.split('.').map((d) => d.trim()).filter(Boolean),
-          deadline: form.deadline
         },
         {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
 
-      alert('Job created successfully!');
+      alert('✅ Job created successfully!');
       setForm({
         title: '',
         company: '',
@@ -51,77 +48,75 @@ function NewPost() {
         salaryRange: '',
         skill: '',
         description: '',
-        deadline: ''
+        deadline: '',
       });
     } catch (error) {
       console.error('Error creating job:', error.response?.data || error.message);
-      alert('Failed to create job. ' + (error.response?.data?.message || 'Please try again.'));
+      alert('❌ Failed to create job. ' + (error.response?.data?.message || 'Please try again.'));
     }
   };
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen bg-gray-100 font-sans">
+    <div className="flex flex-col md:flex-row min-h-screen bg-gradient-to-br from-gray-50 to-white">
       <Sidebar />
-      <main className="flex-1 p-4 sm:p-6">
-        <div className="max-w-4xl mx-auto bg-white p-6 sm:p-8 rounded-xl shadow-md">
-          <h2 className="text-xl sm:text-2xl font-bold mb-6 text-gray-800">📝 Post a New Job</h2>
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {['title', 'company', 'location', 'salaryRange'].map((field) => (
-                <input
-                  key={field}
-                  name={field}
-                  placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
-                  value={form[field]}
+
+      <main className="flex-1 px-4 sm:px-8 md:px-12 py-8">
+        <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-2xl p-8">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+            📝 Post a New Job
+          </h2>
+
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <FormInput label="Job Title" name="title" value={form.title} onChange={handleChange} />
+              <FormInput label="Company Name" name="company" value={form.company} onChange={handleChange} />
+              <FormInput label="Location" name="location" value={form.location} onChange={handleChange} />
+              <FormInput label="Salary Range" name="salaryRange" value={form.salaryRange} onChange={handleChange} />
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Job Type</label>
+                <select
+                  name="category"
+                  value={form.category}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded text-sm sm:text-base"
+                  className="w-full border border-gray-300 rounded-md px-4 py-2 text-sm"
                   required
-                />
-              ))}
+                >
+                  <option value="">Select</option>
+                  <option value="full-time">Full-Time</option>
+                  <option value="part-time">Part-Time</option>
+                  <option value="remote">Remote</option>
+                </select>
+              </div>
+              <FormInput label="Application Deadline" name="deadline" value={form.deadline} onChange={handleChange} type="date" />
+            </div>
 
-              <select
-                name="category"
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Required Skills</label>
+              <textarea
+                name="skill"
+                placeholder="e.g. React, Node.js, MongoDB"
+                value={form.skill}
                 onChange={handleChange}
-                value={form.category}
-                className="w-full px-4 py-2 border border-gray-300 rounded text-sm sm:text-base"
-                required
-              >
-                <option value="">Select Job Type</option>
-                <option value="full-time">Full-Time</option>
-                <option value="part-time">Part-Time</option>
-                <option value="remote">Remote</option>
-              </select>
-
-              <input
-                type="date"
-                name="deadline"
-                value={form.deadline}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded text-sm sm:text-base"
+                className="w-full border border-gray-300 rounded-md px-4 py-2 text-sm"
                 required
               />
             </div>
 
-            <textarea
-              name="skill"
-              placeholder="Required skills (comma separated)"
-              value={form.skill}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded text-sm sm:text-base"
-              required
-            />
-            <textarea
-              name="description"
-              placeholder="Job description (separate by period)"
-              value={form.description}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded text-sm sm:text-base"
-              required
-            />
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Job Description</label>
+              <textarea
+                name="description"
+                placeholder="Write job responsibilities separated by periods."
+                value={form.description}
+                onChange={handleChange}
+                className="w-full border border-gray-300 rounded-md px-4 py-2 text-sm"
+                required
+              />
+            </div>
 
             <button
               type="submit"
-              className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-lg transition duration-200"
+              className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-md shadow transition-all duration-200"
             >
               ✅ Post Job
             </button>
@@ -131,5 +126,19 @@ function NewPost() {
     </div>
   );
 }
+
+const FormInput = ({ label, name, value, onChange, type = 'text' }) => (
+  <div>
+    <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
+    <input
+      type={type}
+      name={name}
+      value={value}
+      onChange={onChange}
+      className="w-full border border-gray-300 rounded-md px-4 py-2 text-sm"
+      required
+    />
+  </div>
+);
 
 export default NewPost;

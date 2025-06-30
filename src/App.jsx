@@ -19,6 +19,7 @@ import Applicant from './PostJob/Applicant';
 import ViewJob from './PostJob/ViewJob';
 import UpdatePost from './PostJob/UpdatePost';
 import UpdateJob from './PostJob/UpdateJob';
+import ApplicantProfile from './PostJob/ApplicantProfile';
 
 function AppWrapper() {
   const location = useLocation();
@@ -48,6 +49,7 @@ function AppWrapper() {
         <Route path="/applicant/:jobId" element={<Applicant />} />
         <Route path="/updatepost" element={<UpdatePost />} />
         <Route path="/updatejob/:id" element={<UpdateJob />} />
+        <Route path="/applicant-profile/:userId" element={<ApplicantProfile />} />
       </Routes>
     </>
   );

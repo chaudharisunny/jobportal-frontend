@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import API from '../utils/api';
 
@@ -35,56 +34,30 @@ const DashboardJob = () => {
   }, []);
 
   return (
-    <div className="flex flex-col lg:flex-row min-h-screen">
+    <div className="flex flex-col lg:flex-row min-h-screen bg-gradient-to-br from-blue-50 to-white">
       <Sidebar />
 
-      <main className="flex-1 bg-gray-50 p-4 sm:p-6 md:p-10">
-        <h1 className="text-2xl sm:text-3xl font-semibold mb-6">Recruiter Dashboard</h1>
+      <main className="flex-1 p-6 md:p-10">
+        <h1 className="text-3xl font-bold text-gray-800 mb-8">Recruiter Dashboard</h1>
 
         {/* Summary Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <Card title="Total Jobs" value={jobs.length} color="text-blue-600" />
-          <Card title="Total Applicants" value={totalApplicants} color="text-purple-600" />
-          <Card title="Applications" value={totalApplicants} color="text-green-600" />
-          <Card title="Hired" value={0} color="text-red-600" />
-        </div>
-
-        {/* Job List */}
-        <div className="mb-8">
-          <h2 className="text-lg font-semibold text-gray-800 mb-4">Posted Jobs</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {jobs.map((job) => (
-              <div
-                key={job._id}
-                className="bg-white p-4 rounded-xl shadow border border-gray-200"
-              >
-                <h3 className="text-lg font-bold text-gray-700 mb-1">{job.title}</h3>
-                <p className="text-sm text-gray-600 mb-2">{job.category}</p>
-                <p className="text-sm text-gray-500 mb-2">
-                  Applicants: <span className="font-medium">{job.applicantCount || 0}</span>
-                </p>
-                <Link
-                  to={`/job/${job._id}/applicants`}
-                  className="text-sm text-blue-600 hover:underline"
-                >
-                  View Applicants
-                </Link>
-              </div>
-            ))}
-          </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+          <Card title="Total Jobs" value={jobs.length} color="text-blue-600" icon="🧰" />
+          <Card title="Total Applicants" value={totalApplicants} color="text-purple-600" icon="👥" />
+          <Card title="Applications" value={totalApplicants} color="text-green-600" icon="📄" />
         </div>
 
         {/* Notifications */}
-        <div className="mt-10 bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-lg shadow-sm w-full">
-          <h2 className="text-lg font-semibold text-yellow-800 mb-2">Notifications</h2>
+        <div className="bg-yellow-100 border-l-4 border-yellow-500 p-6 rounded-xl shadow-md">
+          <h2 className="text-xl font-semibold text-yellow-900 mb-3">Notifications</h2>
           {notifications.length > 0 ? (
-            <ul className="list-disc pl-5 text-sm text-yellow-700 space-y-1">
+            <ul className="list-disc pl-5 text-sm text-yellow-800 space-y-2">
               {notifications.map((note, i) => (
                 <li key={i}>{note}</li>
               ))}
             </ul>
           ) : (
-            <p className="text-sm text-yellow-700">No new notifications.</p>
+            <p className="text-sm text-yellow-800">No new notifications.</p>
           )}
         </div>
       </main>
@@ -92,11 +65,14 @@ const DashboardJob = () => {
   );
 };
 
-// Reusable Card Component
-const Card = ({ title, value, color }) => (
-  <div className="bg-white shadow rounded-xl p-5">
-    <h2 className="text-base font-medium text-gray-700">{title}</h2>
-    <p className={`text-3xl font-semibold ${color}`}>{value}</p>
+// Enhanced Card Component
+const Card = ({ title, value, color, icon }) => (
+  <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all p-6 flex items-center space-x-4">
+    <div className="text-4xl">{icon}</div>
+    <div>
+      <h2 className="text-sm font-medium text-gray-500 mb-1">{title}</h2>
+      <p className={`text-3xl font-bold ${color}`}>{value}</p>
+    </div>
   </div>
 );
 
